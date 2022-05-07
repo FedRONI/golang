@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"notice/controllers"
+	"notice/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -24,6 +25,8 @@ func main() {
 			"title":"App",
 		})
 	})
+
+	r.Use(service.CORS())
 
 	r.GET("/api", Api)
 
