@@ -25,7 +25,7 @@ function App() {
   }, [isUpdate]);
 
   const addNote = () => {
-    axios.post('ttp://localhost:9090/api/note/add',
+    axios.post('http://localhost:9090/api/note/add',
     {
       title: inputTitle.current.value,
       info: inputInfo.current.value
