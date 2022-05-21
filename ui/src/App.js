@@ -49,18 +49,30 @@ function App() {
   }
   
   return (
-    <div className="App">
-      <label>Заголовок</label>
-      <input ref={inputTitle} type="text"/>
-      <label>Описание</label>
-      <input ref={inputInfo} type="text"/>
-      <button onClick={() => addNote()}>Добавить</button>
-      <label>Введите ID</label>
-      <input ref={inputId} type="text"/>
-      <button onClick={() => delNote()}>Удалить</button>
-     {!!notes && notes.map((note, index) => (
-       <div key={index}>{note.title}</div>
-     ))}
+    <div className="main">
+      <div className="App">
+        <div className="Text">
+          <div>
+            <div>
+              <label>Заголовок</label>
+              <input ref={inputTitle} type="text"/>
+              <label>Описание</label>
+              <input ref={inputInfo} type="text"/>
+              <button onClick={() => addNote()}>Добавить</button>
+            </div>
+            <div>
+              <label className="Text">Введите номер заметки</label>
+              <input ref={inputId} type="text"/>
+              <button onClick={() => delNote()}>Удалить</button>
+            </div>
+          </div>
+          <div className="box">
+            {!!notes && notes.map((note, index) => (
+              <div className="Note" key={index}>{note.id}. {note.title} {note.info}</div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
