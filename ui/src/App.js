@@ -10,6 +10,8 @@ function App() {
   
   const inputInfo = useRef(null);
   const inputTitle = useRef(null);
+  const inputId = useRef(null);
+
 
 
   useEffect(() => {
@@ -36,6 +38,15 @@ function App() {
       setIsUpdate(!isUpdate);
     });
   }
+
+  const delNote = () => {
+    axios.delete('http://localhost:9090/api/note/'+inputId.current.value,
+    {
+      withCredentials: false
+    }).then(() => {
+      setIsUpdate(!isUpdate);
+    });
+  }
   
   return (
     <div className="App">
@@ -44,6 +55,9 @@ function App() {
       <label>Описание</label>
       <input ref={inputInfo} type="text"/>
       <button onClick={() => addNote()}>Добавить</button>
+      <label>Введите ID</label>
+      <input ref={inputId} type="text"/>
+      <button onClick={() => delNote()}>Удалить</button>
      {!!notes && notes.map((note, index) => (
        <div key={index}>{note.title}</div>
      ))}
