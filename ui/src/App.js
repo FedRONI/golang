@@ -39,8 +39,21 @@ function App() {
     });
   }
 
-  const delNote = () => {
-    axios.delete('http://localhost:9090/api/note/'+inputId.current.value,
+  const delNote = (id) => {
+    axios.delete('http://localhost:9090/api/note/'+id,
+    {
+      withCredentials: false
+    }).then(() => {
+      setIsUpdate(!isUpdate);
+    });
+  }
+
+  const editNote = (id) => {
+    axios.put('http://localhost:9090/api/note/' + id,
+    {
+      title: inputTitle.current.value,
+      info: inputInfo.current.value
+    },
     {
       withCredentials: false
     }).then(() => {
@@ -52,23 +65,31 @@ function App() {
     <div className="main">
       <div className="App">
         <div className="Text">
-          <div>
-            <div>
-              <label>Заголовок</label>
-              <input ref={inputTitle} type="text"/>
-              <label>Описание</label>
-              <input ref={inputInfo} type="text"/>
-              <button onClick={() => addNote()}>Добавить</button>
-            </div>
-            <div>
-              <label className="Text">Введите номер заметки</label>
-              <input ref={inputId} type="text"/>
-              <button onClick={() => delNote()}>Удалить</button>
+          <div className="All_Boxes">
+            <div className="Box_Note">
+              <div className="Name_Note">
+                <label className="Note_Name">Заголовок</label>
+                <input ref={inputTitle} type="text"/>
+              </div>
+              <div className="Desc_Note">
+                <label className="Note_Desc">Описание</label>
+                <input ref={inputInfo} type="text"/>
+              </div>
+              <div className="Note_Add">
+                <button onClick={() => addNote()}>Добавить</button>
+              </div>
             </div>
           </div>
           <div className="box">
             {!!notes && notes.map((note, index) => (
-              <div className="Note" key={index}>{note.id}. {note.title} {note.info}</div>
+              <div className="Note" key={index}>
+                <div className="Note_text">{note.title} {note.info}</div>
+                <div className="buttons">
+                  <button className="Delete_Button" onClick={() => delNote(note.id)}>Удалить</button>
+                  <button className="Edit_button" onClick={() => editNote(note.id)}>Редактировать</button>
+                </div>
+                {/* <div className="Modal_window"></div> */}
+              </div>
             ))}
           </div>
         </div>
@@ -78,3 +99,7 @@ function App() {
 }
 
 export default App;
+
+
+{/* <div className="Note_Text" key={index}>{note.title} {note.info}></div>
+<button className="Delete_Button" onClick={() => delNote(note.id)}>Удалить</button> */}
