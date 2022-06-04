@@ -10,6 +10,8 @@ function App() {
   
   const inputInfo = useRef(null);
   const inputTitle = useRef(null);
+  const editInfo = useRef(null);
+  const editTitle = useRef(null);
   const inputId = useRef(null);
 
 
@@ -51,8 +53,8 @@ function App() {
   const editNote = (id) => {
     axios.put('http://localhost:9090/api/note/' + id,
     {
-      title: inputTitle.current.value,
-      info: inputInfo.current.value
+      title: editTitle.current.value,
+      info: editInfo.current.value
     },
     {
       withCredentials: false
@@ -63,6 +65,15 @@ function App() {
   
   return (
     <div className="main">
+      <div className="Modal_window">
+        <div className="Edit">
+          <div className="Title">Sooos</div>
+          <input ref={editTitle} type="text"/>
+          <div className="Title">Sooos</div>
+          <input ref={editInfo} type="text"/>
+        </div>
+      </div>
+      <div className="Modal_windowback"></div>
       <div className="App">
         <div className="Text">
           <div className="All_Boxes">
@@ -86,20 +97,20 @@ function App() {
                 <div className="Note_text">{note.title} {note.info}</div>
                 <div className="buttons">
                   <button className="Delete_Button" onClick={() => delNote(note.id)}>Удалить</button>
-                  <button className="Edit_button" onClick={() => editNote(note.id)}>Редактировать</button>
+                  <button className="Edit_button" onClick={() =>editNote(note.id)}>Редактировать</button>
                 </div>
-                {/* <div className="Modal_window"></div> */}
               </div>
             ))}
           </div>
         </div>
       </div>
     </div>
+    
   );
 }
 
+// 
+//             
+
+
 export default App;
-
-
-{/* <div className="Note_Text" key={index}>{note.title} {note.info}></div>
-<button className="Delete_Button" onClick={() => delNote(note.id)}>Удалить</button> */}
